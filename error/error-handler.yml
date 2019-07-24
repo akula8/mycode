@@ -1,0 +1,9 @@
+---
+- name: First error handler
+  hosts: planet-express
+
+  tasks:
+          - block:
+                  - shell: "echo 'my single' > example.txt"
+                  - shell: "echo 'my second' >> example.txt"
+                  - shell: "echo 'my third' >> example.txt"  

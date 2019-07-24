@@ -1,0 +1,15 @@
+---
+- name: triggering a false 
+  hosts: planet-express
+
+  tasks:
+          - block:
+                  - shell: "echo 'my single' > example.txt"
+                  - shell: "echo 'my second' >> example.txt"
+                  - shell: "/bin/false"  
+            rescue:
+                    - shell: "echo 'my rescue ran Maybe it undoes what block tried to do' >> example.txt"
+            always:
+                    - shell: "echo 'this always runs' >> example.txt"
+
+

@@ -1,0 +1,32 @@
+---
+- name: deploy mission control app
+  hosts: planet-express
+  gather_facts: true
+
+  tasks:
+          - name: bastet on debian system (apt)
+            apt: 
+                name: bastet
+                state: present
+            become: yes
+            when: ansible_os_family == "Debian"
+          
+          - name: bastet on redhat system (yum)
+            yum:
+                    name: bastet
+                    state: present
+            become: yes
+            when: ansible_os_family == "redhat"
+
+          - name: get all home dir
+            command: ls /home
+            become: yes
+            register: homevarz
+
+          - name: create a readme file
+            lineinfile:
+                    create: yes 
+                    path: /home/{{ item }}/README.txt
+                    line: "type Bastet"
+            loop: "{{ homevarz.stdout_lines }}"
+            become: yes
