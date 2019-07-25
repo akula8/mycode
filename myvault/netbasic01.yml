@@ -1,0 +1,12 @@
+---
+- name: another
+  hosts: aristaswitchessecure
+  gather_facts: no
+
+  var_files:
+          - vault.yml
+  tasks:
+  - name: harvest
+    eos_facts: 
+    when: ansible_network_os == 'eos'
+    

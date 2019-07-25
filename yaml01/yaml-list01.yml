@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+          my_list:
+            - "1) A hyphen represents an item on a list"
+            - "2) do the second item on a list is this"
+            - "3) this is the third"
+            - "3) item var is always replaced by an item from the with_items list"
+          my_listB:
+            - "5) here is another list"
+            - "6) We use double quotes"
+            - '7) single quotes are okay as well'
+  tasks:
+          - name: "learning about the debug module"
+            debug:
+                    msg: "debug module allows us to print to the screen --> {{ item }}"
+            loop:
+               - "{{ my_list }}"
+               - "{{ my_listB }}"
